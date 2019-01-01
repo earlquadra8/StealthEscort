@@ -42,5 +42,15 @@ public class Utility
             onAllFinished ();
         }
     }
+
+    public static bool CheckIfContainTag( Transform target, string tagString )
+    {
+        foreach (Transform child in target) {
+            if (child.tag == tagString) {
+                return true;
+            }
+        }
+        return false;
+    }
     #endregion    
 }
