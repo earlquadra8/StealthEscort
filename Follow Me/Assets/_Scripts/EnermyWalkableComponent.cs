@@ -36,6 +36,12 @@ public class EnermyWalkableComponent : WalkableComponentBase
         base.Init ();
         this.waypointTask = GetComponent<EnemyWaypointTaskComponent> ();
     }
+
+    protected override void InterruptWalk()
+    {
+        base.InterruptWalk ();
+        this.navMeshAgent.isStopped = true;
+    }
     #endregion
 
     private void StartWalk ()
@@ -47,5 +53,12 @@ public class EnermyWalkableComponent : WalkableComponentBase
     {
         Transform nextWaypoint = GetNextWayPoint ();
         WalkToSingleWaypoint (nextWaypoint.position, () => waypointTask.RotateToScanPoint (nextWaypoint, () => WalkLoop ()));
+    }
+
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(0,0,50,50),"Stop")) {
+            InterruptWalk ();
+        }
     }
 }
